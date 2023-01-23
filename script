@@ -1,0 +1,44 @@
+#include <iostream>
+#include <map>
+
+std::map<std::string, double> products;
+double balance = 0;
+
+void initProducts() {
+    products["Chips"] = 1.50;
+    products["Soda"] = 2.00;
+    products["Candy"] = 0.75;
+    products["Chocolate"] = 1.25;
+    products["Water"] = 1.00;
+}
+
+void displayProducts() {
+    for (const auto& p : products) {
+        std::cout << p.first << " - $" << p.second << std::endl;
+    }
+}
+
+void insertMoney() {
+    std::cout << "Enter the amount of money to insert: $";
+    double amount;
+    std::cin >> amount;
+    balance += amount;
+    std::cout << "$" << amount << " inserted. Current balance: $" << balance << std::endl;
+}
+
+void purchaseProduct() {
+    std::cout << "Select a product: ";
+    std::string product;
+    std::cin >> product;
+
+    if (products.count(product) == 0) {
+        std::cout << "Product not found." << std::endl;
+        return;
+    }
+
+    double price = products[product];
+    if (balance < price) {
+        std::cout << "Insufficient funds." << std::endl;
+    } else {
+        balance -= price;
+        std::cout << "Purchased " << product << " for $" << price
